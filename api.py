@@ -205,4 +205,5 @@ def export_sheets() -> dict:
     return {"uploaded": result.uploaded, "skipped": result.skipped, "errors": result.errors}
 
 
-app.mount("/", StaticFiles(directory=str(PUBLIC_DIR), html=True), name="public")
+if PUBLIC_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=str(PUBLIC_DIR), html=True), name="public")
