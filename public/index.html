@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <title>GRAPHONE | Global AI Intelligence</title>
+  <style>
+    :root{color-scheme:dark;--bg:#07111f;--panel:#0d1b2c;--panel2:#10243a;--line:#1a3551;--text:#e5f2ff;--muted:#91a9c2;--cyan:#42d7f5;--blue:#477eff;--green:#42d39b;--red:#ff7584}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    button,input,select{font:inherit}
+    button,a{touch-action:manipulation}
+    a{color:var(--cyan);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .layout{min-height:100vh;display:grid;grid-template-columns:244px minmax(0,1fr)}
+    aside{background:#091725;border-right:1px solid var(--line);padding:24px 14px;display:flex;flex-direction:column;gap:22px}
+    .brand{padding:0 12px}.brand strong{font-size:20px;letter-spacing:2px}.brand span{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+    nav{display:grid;gap:5px}
+    nav button{border:0;background:transparent;color:var(--muted);text-align:left;padding:10px 12px;border-radius:8px;cursor:pointer}
+    nav button:hover,nav button[aria-current=true]{background:var(--panel2);color:var(--text)}
+    nav button[aria-current=true]{box-shadow:inset 2px 0 var(--cyan)}
+    .compliance{margin-top:auto;color:var(--muted);font-size:12px;padding:12px}
+    main{min-width:0;padding:26px clamp(16px,3vw,42px);max-width:1600px;width:100%;margin:0 auto}
+    header{display:flex;gap:16px;justify-content:space-between;align-items:center;margin-bottom:26px;flex-wrap:wrap}
+    h1{font-size:28px;margin:0}h2{font-size:16px;margin:0 0 16px}p{color:var(--muted)}
+    .toolbar,.login,.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    button,.button,input,select{border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);padding:9px 12px}
+    button{cursor:pointer}button:hover,.button:hover{border-color:var(--cyan)}
+    button.primary{background:#10405a;border-color:#1d6b87}
+    button:disabled{opacity:.5;cursor:not-allowed}
+    input{min-width:180px}input::placeholder{color:#7189a2}
+    .login input{min-width:150px;max-width:210px}
+    .status{color:var(--muted);font-size:12px}
+    .grid{display:grid;gap:14px}.kpis{grid-template-columns:repeat(5,minmax(130px,1fr));margin:20px 0}
+    .columns{grid-template-columns:repeat(2,minmax(0,1fr));margin:14px 0}
+    .card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:17px}
+    .metric .label{font-size:12px;color:var(--muted)}.metric .value{font-size:27px;font-weight:650;margin-top:5px}
+    .barrow{display:grid;grid-template-columns:minmax(90px,130px) 1fr 32px;align-items:center;gap:10px;margin:11px 0}
+    .barlabel,.barvalue{font-size:12px;color:var(--muted)}.bartrack{height:9px;border-radius:9px;background:#172b3f;overflow:hidden}
+    .barfill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+    .toolbar{margin:14px 0}.toolbar input[type=search]{flex:1}
+    .tablewrap{width:100%;overflow:auto;max-height:68vh;border:1px solid var(--line);border-radius:10px}
+    table{width:100%;border-collapse:collapse;min-width:720px}
+    th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+    th{position:sticky;top:0;background:#10243a;color:#a8bed3;font-size:12px}
+    td.summary{min-width:260px;max-width:500px;color:#b9c9d8}
+    .notice{border:1px solid var(--line);background:var(--panel);padding:12px 14px;border-radius:9px;color:var(--muted);margin:12px 0}
+    .notice.error{border-color:#713b4a;color:#ffb5bd}
+    .hidden{display:none!important}.muted{color:var(--muted)}.section{margin-top:24px}
+    .record-title{font-weight:600}.pill{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:3px 8px;font-size:11px;color:var(--muted)}
+    .download-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+    .download-grid a{padding:12px;border:1px solid var(--line);border-radius:9px;background:var(--panel)}
+    pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#081522;border:1px solid var(--line);border-radius:9px;padding:14px}
+    @media(max-width:900px){.layout{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line);padding:14px}.brand{padding:4px 8px}nav{display:flex;overflow:auto}nav button{white-space:nowrap}.compliance{display:none}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:560px){main{padding:18px 12px}.columns{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.metric .value{font-size:23px}h1{font-size:23px}.login{width:100%}.login input{flex:1;max-width:none}}
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <div class="brand"><strong>◈ GRAPHONE</strong><span>Global AI Intelligence Platform</span></div>
+      <nav id="navigation" aria-label="Main navigation"></nav>
+      <div class="compliance">Public sources · provenance preserved · no synthetic records</div>
+    </aside>
+    <main>
+      <header>
+        <div><h1 id="page-title">Overview</h1><div id="subtitle" class="status">Live public-source intelligence</div></div>
+        <div class="toolbar">
+          <div class="login" id="login-controls">
+            <input id="admin-password" type="password" autocomplete="current-password" placeholder="Admin password" aria-label="Admin password">
+            <button id="login-button" class="primary">Admin sign in</button>
+            <button id="logout-button" class="hidden">Sign out</button>
+          </div>
+          <button id="refresh-button">Refresh</button>
+        </div>
+      </header>
+      <div id="notice" class="notice hidden" role="status"></div>
+      <section id="content"></section>
+    </main>
+  </div>
+  <script>
+    "use strict";
+    const categories = [
+      {id:"startup",label:"Startups"}, {id:"product",label:"Products"},
+      {id:"research",label:"Research Papers"}, {id:"job",label:"AI Jobs"}, {id:"news",label:"AI News"}
+    ];
+    const pages = [
+      {id:"overview",label:"Overview"}, ...categories.map(({id,label})=>({id,label})),
+      {id:"entities",label:"Entity Resolution"}, {id:"pipeline",label:"Pipeline Monitor"},
+      {id:"architecture",label:"System Architecture"}, {id:"settings",label:"Settings"}
+    ];
+    const state = {page:"overview", records:[], runs:[], mappings:[], authEnabled:false, authenticated:false};
+    const $ = (id) => document.getElementById(id);
+    const content = $("content");
+
+    function element(tag, text, className) {
+      const node = document.createElement(tag);
+      if (text !== undefined && text !== null) node.textContent = String(text);
+      if (className) node.className = className;
+      return node;
+    }
+
+    function showNotice(message, isError=false) {
+      const node=$("notice");
+      node.textContent=message;
+      node.classList.toggle("error",isError);
+      node.classList.remove("hidden");
+    }
+
+    async function request(path, options={}) {
+      const response=await fetch(path,{credentials:"same-origin",...options,
+        headers:{"Content-Type":"application/json",...(options.headers||{})}});
+      const body=await response.json().catch(()=>({detail:response.statusText}));
+      if(!response.ok) {
+        const detail=typeof body.detail==="string"?body.detail:JSON.stringify(body.detail||body);
+        throw new Error(detail);
+      }
+      return body;
+    }
+
+    function makeNav() {
+      const nav=$("navigation");
+      for(const page of pages) {
+        const button=element("button",page.label);
+        button.type="button";button.dataset.page=page.id;
+        button.addEventListener("click",()=>renderPage(page.id));
+        nav.append(button);
+      }
+    }
+
+    function makeCard(label,value) {
+      const card=element("div",null,"card metric");
+      card.append(element("div",label,"label"),element("div",value,"value"));
+      return card;
+    }
+
+    function makeBarChart(title, counts) {
+      const card=element("div",null,"card");
+      card.append(element("h2",title));
+      const maximum=Math.max(1,...Object.values(counts));
+      for(const [label,value] of Object.entries(counts)) {
+        const row=element("div",null,"barrow");
+        const track=element("div",null,"bartrack");
+        const fill=element("div",null,"barfill");
+        fill.style.width=`${value?Math.max(3,100*value/maximum):0}%`;
+        track.append(fill);
+        row.append(element("span",label,"barlabel"),track,element("span",value,"barvalue"));
+        card.append(row);
+      }
+      return card;
+    }
+
+    function table(headers, rows) {
+      const wrap=element("div",null,"tablewrap");
+      const tableNode=element("table"),thead=element("thead"),headRow=element("tr");
+      for(const label of headers) headRow.append(element("th",label));
+      thead.append(headRow);
+      const tbody=element("tbody");
+      for(const values of rows) {
+        const tr=element("tr");
+        for(const value of values) {
+          const td=element("td");
+          if(value && value.href) {
+            const link=element("a",value.label);
+            link.href=value.href;link.target="_blank";link.rel="noopener noreferrer";td.append(link);
+          } else {
+            td.textContent=value==null?"":String(value);
+            if(value && value.className) td.className=value.className;
+          }
+          tr.append(td);
+        }
+        tbody.append(tr);
+      }
+      tableNode.append(thead,tbody);wrap.append(tableNode);
+      if(!rows.length) return element("div","No records collected yet. Use an authorized collector run or refresh after ingestion.","notice");
+      return wrap;
+    }
+
+    function recordRows(records) {
+      return records.map(record=>[
+        {label:record.title,href:record.url},
+        record.organization||"—",
+        record.source||"—",
+        record.published_at?new Date(record.published_at).toLocaleString():"—",
+        {label:"Source",href:record.source_url},
+        {className:"summary",toString:()=>record.summary||""}
+      ]);
+    }
+
+    function makeRecordTable(records) {
+      const rows=records.map(record=>[
+        {label:record.title,href:record.url},
+        record.organization||"—",
+        record.source||"—",
+        record.published_at?new Date(record.published_at).toLocaleString():"—",
+        {label:"Source",href:record.source_url},
+        record.summary||""
+      ]);
+      const result=table(["Title","Organization / authors","Source","Published","Provenance","Summary"],rows);
+      for(const cell of result.querySelectorAll("tbody td:last-child")) cell.classList.add("summary");
+      return result;
+    }
+
+    function addSearch(records) {
+      const toolbar=element("div",null,"toolbar");
+      const input=element("input");
+      input.type="search";input.placeholder="Search records";input.setAttribute("aria-label","Search records");
+      const tableHost=element("div");
+      const draw=()=>tableHost.replaceChildren(makeRecordTable(records.filter(record=>
+        `${record.title} ${record.organization} ${record.summary} ${record.source}`.toLowerCase().includes(input.value.toLowerCase()))));
+      input.addEventListener("input",draw);toolbar.append(input);draw();
+      content.append(toolbar,tableHost);
+    }
+
+    function updateAuth() {
+      $("login-button").classList.toggle("hidden",state.authenticated||!state.authEnabled);
+      $("admin-password").classList.toggle("hidden",state.authenticated||!state.authEnabled);
+      $("logout-button").classList.toggle("hidden",!state.authenticated);
+      if(!state.authEnabled) $("subtitle").textContent="Admin actions disabled until deployment secrets are configured";
+      else if(state.authenticated) $("subtitle").textContent="Admin session active · expires after 8 hours";
+    }
+
+    function isFresh(record) {
+      if(!record.published_at) return false;
+      const age=Date.now()-new Date(record.published_at).getTime();
+      return age>=0 && age<=24*60*60*1000;
+    }
+
+    async function load() {
+      try {
+        const [records,runs,auth,mappings]=await Promise.all([
+          request("/records?limit=1000"),request("/runs?limit=50"),request("/auth/status"),request("/entities/mappings")
+        ]);
+        state.records=records;state.runs=runs;state.authEnabled=auth.admin_enabled;
+        state.authenticated=auth.authenticated;state.mappings=mappings;updateAuth();
+        renderPage(state.page);
+      } catch(error) {
+        showNotice(`Could not load GraphOne data: ${error.message}. Check that PostgreSQL is configured for this Vercel deployment.`,true);
+      }
+    }
+
+    function renderPage(id) {
+      state.page=id;
+      $("page-title").textContent=pages.find(page=>page.id===id)?.label||"GRAPHONE";
+      document.querySelectorAll("#navigation button").forEach(button=>
+        button.setAttribute("aria-current",String(button.dataset.page===id)));
+      content.replaceChildren();
+      $("notice").classList.add("hidden");
+
+      if(id==="overview") {
+        const counts=Object.fromEntries(categories.map(({id:category})=>
+          [category,state.records.filter(record=>record.category===category &&
+            (!["job","news"].includes(category)||isFresh(record))).length]));
+        const labels={startup:"Startups",product:"Products",research:"Research Papers",job:"Fresh AI Jobs",news:"Fresh AI News"};
+        const metrics=element("div",null,"grid kpis");
+        categories.forEach(({id:category})=>metrics.append(makeCard(labels[category],counts[category])));
+        const charts=element("div",null,"grid columns");
+        charts.append(makeBarChart("Collected by category",Object.fromEntries(categories.map(({id:category,label})=>[label,counts[category]]))));
+        const days={};
+        for(const record of state.records) {
+          if(record.first_seen_at) {
+            const day=new Date(record.first_seen_at).toISOString().slice(0,10);
+            days[day]=(days[day]||0)+1;
+          }
+        }
+        charts.append(makeBarChart("Recently ingested",Object.fromEntries(Object.entries(days).sort().slice(-7))));
+        content.append(element("p","Live source-backed records. Every item links to its record and provenance source."),metrics,charts);
+        return;
+      }
+
+      const category=categories.find(item=>item.id===id);
+      if(category) {
+        const records=state.records.filter(record=>record.category===id &&
+          (!["job","news"].includes(id)||isFresh(record)));
+        const toolbar=element("div",null,"toolbar");
+        const csv=element("a","Download CSV","button");csv.href=`/exports/${id}.csv`;toolbar.append(csv);
+        const run=element("button",`Run ${category.label} collector`,"primary");
+        run.disabled=!state.authenticated;
+        run.addEventListener("click",()=>runCollector(id,run));
+        toolbar.append(run);
+        if(!state.authenticated) toolbar.append(element("span","Sign in to run collectors.","status"));
+        content.append(element("p",`${records.length} source-attributed records`),toolbar);
+        addSearch(records);
+        return;
+      }
+
+      if(id==="pipeline") {
+        content.append(element("p","Runs are stored in the shared PostgreSQL database."));
+        const toolbar=element("div",null,"toolbar"),select=element("select");
+        for(const option of [{value:"all",label:"All collectors"},...categories.map(({id:value,label})=>({value,label}))]) {
+          const item=element("option",option.label);item.value=option.value;select.append(item);
+        }
+        const run=element("button","Run selected collector","primary");
+        run.disabled=!state.authenticated;
+        run.addEventListener("click",async()=>{
+          if(select.value==="all") {
+            for(const item of categories) await runCollector(item.id,run);
+          } else await runCollector(select.value,run);
+        });
+        toolbar.append(select,run);
+        const rows=state.runs.map(item=>[
+          item.collector,item.status,item.records_found,item.records_saved,
+          item.started_at?new Date(item.started_at).toLocaleString():"",
+          item.error||""
+        ]);
+        content.append(toolbar,table(["Collector","Status","Found","New","Started","Error"],rows));
+        return;
+      }
+
+      if(id==="entities") {
+        const form=element("div",null,"toolbar"),input=element("input"),button=element("button","Resolve name","primary"),result=element("pre");
+        input.placeholder="Enter an organization name";
+        button.addEventListener("click",async()=>{
+          if(!input.value.trim()) return;
+          try { result.textContent=JSON.stringify(await request(`/entities/resolve?name=${encodeURIComponent(input.value)}`),null,2); }
+          catch(error) { showNotice(error.message,true); }
+        });
+        form.append(input,button);
+        const rows=state.mappings.map(item=>[
+          item.raw_name,item.canonical_name,item.method,`${Math.round(item.confidence*100)}%`,
+          {label:"Source",href:item.source_url}
+        ]);
+        content.append(element("p","Exact aliases resolve automatically; uncertain names are retained for review."),form,result,
+          table(["Raw name","Canonical","Method","Confidence","Provenance"],rows),
+          element("a","Download mapping CSV","button"));
+        content.querySelector("a.button").href="/exports/entity_mapping.csv";
+        return;
+      }
+
+      if(id==="settings") {
+        content.append(element("p","Secrets belong in Vercel Project → Settings → Environment Variables. Do not put credentials in the repository."));
+        const links=element("div",null,"download-grid");
+        for(const item of [...categories,{id:"entity_mapping",label:"Entity Mapping Log"}]) {
+          const link=element("a",`Download ${item.label} CSV`);
+          link.href=`/exports/${item.id}.csv`;links.append(link);
+        }
+        const button=element("button","Export all worksheets to Google Sheets","primary");
+        button.disabled=!state.authenticated;
+        button.addEventListener("click",async()=>{
+          try {
+            const result=await request("/exports/sheets",{method:"POST",body:"{}"});
+            showNotice(`Google Sheets export completed: ${result.uploaded.join(", ")||"no worksheets uploaded"}`);
+          } catch(error) { showNotice(`Google Sheets export failed: ${error.message}`,true); }
+        });
+        content.append(element("h2","Exports"),links,element("p","Configure Sheets credentials and spreadsheet ID before exporting."),
+          button,element("h2","Admin access","section"),
+          element("p","Set DASHBOARD_PASSWORD and a long random DASHBOARD_SESSION_SECRET in Vercel. Collector controls stay disabled until both are configured."));
+        return;
+      }
+
+      content.append(element("h2","Vercel architecture"),
+        element("p","Static dashboard files are served from the CDN. FastAPI runs as a Python Function and stores records in persistent PostgreSQL; serverless local files are not used for database writes."),
+        element("p","Public-source requests are asynchronous and bounded. Jobs and news require a verifiable publication date within 24 hours. Fingerprint uniqueness prevents duplicate inserts across repeated runs."),
+        element("p","Configure a Neon or other PostgreSQL DATABASE_URL, DASHBOARD_PASSWORD, and DASHBOARD_SESSION_SECRET before enabling authenticated collector actions."),
+        element("p","The deployment is a prototype. It is not load-tested for 500,000 records."));
+    }
+
+    async function runCollector(name,button) {
+      if(!state.authenticated) { showNotice("Sign in as an administrator before running collectors.",true);return; }
+      button.disabled=true;button.textContent="Collector running…";
+      try {
+        const result=await request(`/collectors/${encodeURIComponent(name)}/run`,{method:"POST",body:"{}"});
+        showNotice(`${result.collector}: ${result.found} found, ${result.saved} new (${result.status}).`);
+        await load();
+      } catch(error) { showNotice(`Collector failed: ${error.message}`,true); }
+      finally { button.disabled=!state.authenticated;button.textContent=`Run ${categories.find(item=>item.id===name)?.label||"selected"} collector`; }
+    }
+
+    $("login-button").addEventListener("click",async()=>{
+      const password=$("admin-password").value;
+      try {
+        await request("/auth/login",{method:"POST",body:JSON.stringify({password})});
+        $("admin-password").value="";
+        await load();showNotice("Signed in. Collector actions are enabled for this session.");
+      } catch(error) { showNotice(`Sign-in failed: ${error.message}`,true); }
+    });
+    $("logout-button").addEventListener("click",async()=>{
+      try { await request("/auth/logout",{method:"POST",body:"{}"});await load(); }
+      catch(error) { showNotice(error.message,true); }
+    });
+    $("refresh-button").addEventListener("click",load);
+    makeNav();load();
+  </script>
+</body>
+</html>
